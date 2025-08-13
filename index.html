@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VR Fresh – Protège ton casque</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #0f1a2a;
+      color: white;
+      text-align: center;
+      padding: 40px;
+    }
+    .logo {
+      width: 120px;
+      margin: 20px;
+    }
+    button {
+      background: #00c853;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      margin: 10px;
+    }
+    .btn-blue {
+      background: #2962ff;
+    }
+    .btn-blue:hover {
+      background: #0039cb;
+    }
+    button:hover {
+      background: #00e676;
+    }
+    input, select {
+      padding: 12px;
+      width: 80%;
+      margin: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+  <img src="logo.png" alt="VR Fresh" class="logo" />
+  <h1>Scanne ton casque VR</h1>
+  <p>Protège-toi avec un liner jetable propre 🧼</p>
+  <p><strong>Disponible bientôt au Burkina Faso.</strong></p>
+
+  <button onclick="scan()">🔍 Scanner le casque</button>
+
+  <div style="margin-top: 30px;">
+    <h3>🚀 Veux-tu être des premiers à tester ?</h3>
+    <p>Reçois ton liner <strong>gratuit</strong> à l’essai.</p>
+
+    <input type="text" placeholder="Ton prénom" id="prenom" />
+    <input type="tel" placeholder="Ton WhatsApp (+226 XX XX XX XX)" id="whatsapp" />
+    <select id="casque">
+      <option value="">Ton casque VR</option>
+      <option value="Meta Quest 2">Meta Quest 2</option>
+      <option value="Meta Quest 3">Meta Quest 3</option>
+      <option value="Pico 4">Pico 4</option>
+      <option value="Autre">Autre</option>
+    </select>
+
+    <button class="btn-blue" onclick="envoyer()">✅ Je veux mon liner gratuit</button>
+  </div>
+
+  <script>
+    function scan() {
+      alert("Scan terminé ! Casque compatible avec VR Fresh.");
+    }
+
+    function envoyer() {
+      const prenom = document.getElementById("prenom").value;
+      const whatsapp = document.getElementById("whatsapp").value;
+      const casque = document.getElementById("casque").value;
+
+      if (!prenom || !whatsapp || !casque) {
+        alert("Veuillez remplir tous les champs.");
+        return;
+      }
+
+      const message = `
+        NOUVELLE DEMANDE DE LINER GRATUIT 🎁
+        Prénom : ${prenom}
+        WhatsApp : ${whatsapp}
+        Casque : ${casque}
+        ---
+        Réponds-lui vite !
+      `;
+
+      const encoded = encodeURIComponent(message);
+      window.open(https://wa.me/22656016985?text=${encoded}, "_blank");
+    }
+  </script>
+</body>
+</html>
