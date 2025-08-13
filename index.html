@@ -1,17 +1,308 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-  <title>Test VR Fresh</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VR Fresh – Protège ton casque</title>
+  <!-- Favicon -->
+  <link rel="icon" href="https://i.ibb.co/0jZ0z0f/vrfresh-logo.png" type="image/png">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #0f1a2a;
+      color: white;
+      text-align: center;
+      padding: 40px;
+      margin: 0;
+    }
+
+    /* === LOGO ANIMÉ VR FRESH === */
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin: 20px auto;
+      max-width: 220px;
+    }
+
+    .vr-circle {
+      width: 50px;
+      height: 50px;
+      border: 3px solid #00c853;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: rotate 4s linear infinite;
+      box-shadow: 0 0 15px rgba(0, 200, 83, 0.3);
+      position: relative;
+    }
+
+    .vr-circle::before {
+      content: "";
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      border: 2px solid #00e676;
+      border-radius: 50%;
+      opacity: 0.6;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .vr-inner {
+      width: 20px;
+      height: 20px;
+      background: #00c853;
+      border-radius: 50%;
+    }
+
+    .logo-text {
+      font-weight: bold;
+      text-align: left;
+      line-height: 1.1;
+    }
+
+    .logo-text div:first-child {
+      color: white;
+      font-size: 24px;
+    }
+
+    .logo-text div:last-child {
+      color: #00e676;
+      font-size: 16px;
+    }
+
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 0.9; transform: scale(1.1); }
+    }
+
+    /* === QR CODE === */
+    .qrcode-container {
+      margin: 20px auto;
+      padding: 15px;
+      background: white;
+      display: inline-block;
+      border-radius: 10px;
+    }
+
+    .qrcode {
+      width: 150px;
+      height: 150px;
+      background: url('https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://vrfresh.bf') no-repeat;
+      background-size: contain;
+    }
+
+    p.small {
+      font-size: 14px;
+      color: #ccc;
+    }
+
+    /* === BOUTONS & FORMULAIRE === */
+    h1 {
+      margin-top: 10px;
+      font-size: 26px;
+    }
+
+    p {
+      color: #ccc;
+      font-size: 16px;
+    }
+
+    button {
+      background: #00c853;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      margin: 10px;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #00e676;
+    }
+
+    .btn-blue {
+      background: #2962ff;
+    }
+
+    .btn-blue:hover {
+      background: #0039cb;
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
+    input, select {
+      padding: 12px;
+      width: 80%;
+      margin: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    .form-container {
+      margin: 30px auto;
+      max-width: 400px;
+    }
+
+    /* === POPUP DE REMERCIEMENT === */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .popup-content {
+      background: white;
+      color: #0f1a2a;
+      padding: 30px;
+      border-radius: 15px;
+      max-width: 300px;
+      text-align: center;
+      font-size: 16px;
+    }
+
+    .popup-content h3 {
+      margin-top: 0;
+      color: #00c853;
+    }
+
+    .popup-content button {
+      background: #00c853;
+      color: white;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+
+    /* === FOOTER === */
+    .footer {
+      margin-top: 40px;
+      font-size: 14px;
+      color: #999;
+    }
+
+    .footer a {
+      color: #00e676;
+      text-decoration: none;
+      margin: 0 5px;
+    }
+  </style>
 </head>
 <body>
-  <h1>Test du bouton</h1>
-  <button onclick="test()">Clique-moi</button>
 
+  <!-- Logo VR Fresh -->
+  <div class="logo-container">
+    <div class="vr-circle">
+      <div class="vr-inner"></div>
+    </div>
+    <div class="logo-text">
+      <div>VR</div>
+      <div>Fresh</div>
+    </div>
+  </div>
+
+  <!-- Titre -->
+  <h1>Scanne ton casque VR</h1>
+  <p>Protège-toi avec un liner jetable propre 🧼</p>
+  <p><strong>Disponible bientôt au Burkina Faso.</strong></p>
+
+  <!-- QR Code (vers lien court) -->
+  <div class="qrcode-container">
+    <div class="qrcode"></div>
+  </div>
+  <p class="small">👉 Scanne pour accéder à VR Fresh</p>
+
+  <!-- Formulaire -->
+  <div class="form-container">
+    <h3>🚀 Veux-tu être des premiers à tester ?</h3>
+    <p>Reçois ton liner <strong>gratuit</strong> à l’essai.</p>
+
+    <input type="text" placeholder="Ton prénom" id="prenom" />
+    <input type="tel" placeholder="Ton WhatsApp (+226 XX XX XX XX)" id="whatsapp" />
+    <select id="casque">
+      <option value="">Ton casque VR</option>
+      <option value="Meta Quest 2">Meta Quest 2</option>
+      <option value="Meta Quest 3">Meta Quest 3</option>
+      <option value="Pico 4">Pico 4</option>
+      <option value="Autre">Autre</option>
+    </select>
+
+    <button class="btn-blue" onclick="envoyer()">✅ Je veux mon liner gratuit</button>
+  </div>
+
+  <!-- Popup de remerciement -->
+  <div class="popup" id="popup">
+    <div class="popup-content">
+      <h3>🎉 Merci !</h3>
+      <p>Ton message a été envoyé. Je te contacte très vite pour t’offrir ton liner gratuit.</p>
+      <button onclick="fermerPopup()">Fermer</button>
+    </div>
+  </div>
+
+  <!-- Script -->
   <script>
-    function test() {
-      alert("JavaScript fonctionne !");
-      window.open("https://wa.me/22670123456", "_blank");
+    function envoyer() {
+      const prenom = document.getElementById("prenom").value;
+      const whatsapp = document.getElementById("whatsapp").value;
+      const casque = document.getElementById("casque").value;
+      const btn = document.querySelector(".btn-blue");
+
+      if (!prenom || !whatsapp || !casque) {
+        alert("❌ Veuillez remplir tous les champs.");
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = "✅ Envoi en cours...";
+
+      const message = `
+        🎁 DEMANDE DE LINER GRATUIT – VR FRESH
+        Bonjour, je suis ${prenom}
+        Numéro : ${whatsapp}
+        Casque : ${casque}
+        ---
+        Je souhaite tester le liner hygiénique VR Fresh. Merci !
+      `;
+
+      const encoded = encodeURIComponent(message);
+      window.open(https://wa.me/22656016985?text=${encoded}, "_blank");
+
+      // Afficher la popup après 1 seconde
+      setTimeout(() => {
+        document.getElementById("popup").style.display = "flex";
+        btn.disabled = false;
+        btn.textContent = "✅ Je veux mon liner gratuit";
+      }, 1000);
+    }
+
+    function fermerPopup() {
+      document.getElementById("popup").style.display = "none";
     }
   </script>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>🔗 <a href="https://beacons.ai/vrfreshbf" target="_blank">Tous nos réseaux</a></p>
+  </div>
+
 </body>
 </html>
