@@ -136,6 +136,10 @@
       background: #0039cb;
     }
 
+    button:disabled {
+      cursor: not-allowed;
+    }
+
     input, select {
       padding: 12px;
       width: 80%;
@@ -166,7 +170,7 @@
 </head>
 <body>
 
-  <!-- Logo VR Fresh (animé, sans image externe) -->
+  <!-- Logo VR Fresh -->
   <div class="logo-container">
     <div class="vr-circle">
       <div class="vr-inner"></div>
@@ -182,13 +186,13 @@
   <p>Protège-toi avec un liner jetable propre 🧼</p>
   <p><strong>Disponible bientôt au Burkina Faso.</strong></p>
 
-  <!-- QR Code pour simuler le scan -->
+  <!-- QR Code -->
   <div class="qrcode-container">
     <div class="qrcode"></div>
   </div>
-  <p class="small">👉 Scanne ce QR code avec ton téléphone pour activer la protection</p>
+  <p class="small">👉 Scanne ce QR code avec ton téléphone</p>
 
-  <!-- Formulaire de pré-inscription -->
+  <!-- Formulaire -->
   <div class="form-container">
     <h3>🚀 Veux-tu être des premiers à tester ?</h3>
     <p>Reçois ton liner <strong>gratuit</strong> à l’essai.</p>
@@ -206,19 +210,25 @@
     <button class="btn-blue" onclick="envoyer()">✅ Je veux mon liner gratuit</button>
   </div>
 
-  <!-- Script JavaScript -->
+  <!-- Script mis à jour avec confirmation -->
   <script>
     function envoyer() {
       const prenom = document.getElementById("prenom").value;
       const whatsapp = document.getElementById("whatsapp").value;
       const casque = document.getElementById("casque").value;
+      const btn = document.querySelector(".btn-blue");
 
       if (!prenom || !whatsapp || !casque) {
         alert("❌ Veuillez remplir tous les champs.");
         return;
       }
 
-      // Message WhatsApp pré-rempli
+      // Désactiver le bouton
+      btn.disabled = true;
+      btn.style.opacity = "0.6";
+      btn.textContent = "✅ Envoi en cours...";
+
+      // Message WhatsApp
       const message = `
         🎁 DEMANDE DE LINER GRATUIT – VR FRESH
         Bonjour, je suis ${prenom}
@@ -230,18 +240,25 @@
 
       const encoded = encodeURIComponent(message);
       window.open(https://wa.me/22600000000?text=${encoded}, "_blank");
+
+      // Message de remerciement
+      setTimeout(() => {
+        alert(🎉 Merci ${prenom} !\n\nTon message a été envoyé. Je te contacte très vite pour t’offrir ton liner gratuit.);
+        btn.disabled = false;
+        btn.textContent = "✅ Je veux mon liner gratuit";
+        btn.style.opacity = "1";
+      }, 2000);
     }
   </script>
 
-  <!-- Footer - Liens réseaux -->
+  <!-- Footer -->
   <div class="footer">
-    <p>Télécharge le logo officiel : <a href="https://i.ibb.co/0jZ0z0f/vrfresh-logo.png" target="_blank">vrfresh-logo.png</a></p>
+    <p>Télécharge le logo : <a href="https://i.ibb.co/0jZ0z0f/vrfresh-logo.png" target="_blank">vrfresh-logo.png</a></p>
     <p>Suivez-nous : 
-      <a href="https://beacons.ai/vrfreshbf" target="_blank">Tous nos réseaux</a> | 
-      <a href="https://tiktok.com/@vrfresh_bf" target="_blank">TikTok</a> | 
-      <a href="https://instagram.com/vrfresh.africa" target="_blank">Instagram</a>
+      <a href="https://beacons.ai/vrfreshbf" target="_blank">Tous nos réseaux</a>
     </p>
   </div>
 
 </body>
 </html>
+
