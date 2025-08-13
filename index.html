@@ -11,11 +11,107 @@
       color: white;
       text-align: center;
       padding: 40px;
+      margin: 0;
     }
-    .logo {
-      width: 120px;
-      margin: 20px;
+
+    /* === LOGO ANIMÉ VR FRESH === */
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin: 20px auto;
+      max-width: 220px;
     }
+
+    .vr-circle {
+      width: 50px;
+      height: 50px;
+      border: 3px solid #00c853;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: rotate 4s linear infinite;
+      box-shadow: 0 0 15px rgba(0, 200, 83, 0.3);
+      position: relative;
+    }
+
+    .vr-circle::before {
+      content: "";
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      border: 2px solid #00e676;
+      border-radius: 50%;
+      opacity: 0.6;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .vr-inner {
+      width: 20px;
+      height: 20px;
+      background: #00c853;
+      border-radius: 50%;
+    }
+
+    .logo-text {
+      font-weight: bold;
+      text-align: left;
+      line-height: 1.1;
+    }
+
+    .logo-text div:first-child {
+      color: white;
+      font-size: 24px;
+    }
+
+    .logo-text div:last-child {
+      color: #00e676;
+      font-size: 16px;
+    }
+
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 0.9; transform: scale(1.1); }
+    }
+
+    /* === QR CODE === */
+    .qrcode-container {
+      margin: 20px auto;
+      padding: 15px;
+      background: white;
+      display: inline-block;
+      border-radius: 10px;
+    }
+
+    .qrcode {
+      width: 150px;
+      height: 150px;
+      background: url('https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://vrfresh-app.vercel.app') no-repeat;
+      background-size: contain;
+    }
+
+    p.small {
+      font-size: 14px;
+      color: #ccc;
+    }
+
+    /* === BOUTONS & FORMULAIRE === */
+    h1 {
+      margin-top: 10px;
+      font-size: 26px;
+    }
+
+    p {
+      color: #ccc;
+      font-size: 16px;
+    }
+
     button {
       background: #00c853;
       color: white;
@@ -25,34 +121,75 @@
       border-radius: 10px;
       cursor: pointer;
       margin: 10px;
+      transition: background 0.3s;
     }
-    .btn-blue {
-      background: #2962ff;
-    }
-    .btn-blue:hover {
-      background: #0039cb;
-    }
+
     button:hover {
       background: #00e676;
     }
+
+    .btn-blue {
+      background: #2962ff;
+    }
+
+    .btn-blue:hover {
+      background: #0039cb;
+    }
+
     input, select {
       padding: 12px;
       width: 80%;
       margin: 10px;
       border-radius: 8px;
       border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    .form-container {
+      margin: 30px auto;
+      max-width: 400px;
+    }
+
+    /* === FOOTER RÉSEAUX === */
+    .footer {
+      margin-top: 40px;
+      font-size: 14px;
+      color: #999;
+    }
+
+    .footer a {
+      color: #00e676;
+      text-decoration: none;
+      margin: 0 5px;
     }
   </style>
 </head>
 <body>
-  <img src="logo.png" alt="VR Fresh" class="logo" />
+
+  <!-- Logo VR Fresh (animé, sans image externe) -->
+  <div class="logo-container">
+    <div class="vr-circle">
+      <div class="vr-inner"></div>
+    </div>
+    <div class="logo-text">
+      <div>VR</div>
+      <div>Fresh</div>
+    </div>
+  </div>
+
+  <!-- Titre principal -->
   <h1>Scanne ton casque VR</h1>
   <p>Protège-toi avec un liner jetable propre 🧼</p>
   <p><strong>Disponible bientôt au Burkina Faso.</strong></p>
 
-  <button onclick="scan()">🔍 Scanner le casque</button>
+  <!-- QR Code pour simuler le scan -->
+  <div class="qrcode-container">
+    <div class="qrcode"></div>
+  </div>
+  <p class="small">👉 Scanne ce QR code avec ton téléphone pour activer la protection</p>
 
-  <div style="margin-top: 30px;">
+  <!-- Formulaire de pré-inscription -->
+  <div class="form-container">
     <h3>🚀 Veux-tu être des premiers à tester ?</h3>
     <p>Reçois ton liner <strong>gratuit</strong> à l’essai.</p>
 
@@ -69,33 +206,42 @@
     <button class="btn-blue" onclick="envoyer()">✅ Je veux mon liner gratuit</button>
   </div>
 
+  <!-- Script JavaScript -->
   <script>
-    function scan() {
-      alert("Scan terminé ! Casque compatible avec VR Fresh.");
-    }
-
     function envoyer() {
       const prenom = document.getElementById("prenom").value;
       const whatsapp = document.getElementById("whatsapp").value;
       const casque = document.getElementById("casque").value;
 
       if (!prenom || !whatsapp || !casque) {
-        alert("Veuillez remplir tous les champs.");
+        alert("❌ Veuillez remplir tous les champs.");
         return;
       }
 
+      // Message WhatsApp pré-rempli
       const message = `
-        NOUVELLE DEMANDE DE LINER GRATUIT 🎁
-        Prénom : ${prenom}
-        WhatsApp : ${whatsapp}
+        🎁 DEMANDE DE LINER GRATUIT – VR FRESH
+        Bonjour, je suis ${prenom}
+        Numéro : ${whatsapp}
         Casque : ${casque}
         ---
-        Réponds-lui vite !
+        Je souhaite tester le liner hygiénique VR Fresh. Merci !
       `;
 
       const encoded = encodeURIComponent(message);
-      window.open(https://wa.me/22656016985?text=${encoded}, "_blank");
+      window.open(https://wa.me/22600000000?text=${encoded}, "_blank");
     }
   </script>
+
+  <!-- Footer - Liens réseaux -->
+  <div class="footer">
+    <p>Télécharge le logo officiel : <a href="https://i.ibb.co/0jZ0z0f/vrfresh-logo.png" target="_blank">vrfresh-logo.png</a></p>
+    <p>Suivez-nous : 
+      <a href="https://beacons.ai/vrfreshbf" target="_blank">Tous nos réseaux</a> | 
+      <a href="https://tiktok.com/@vrfresh_bf" target="_blank">TikTok</a> | 
+      <a href="https://instagram.com/vrfresh.africa" target="_blank">Instagram</a>
+    </p>
+  </div>
+
 </body>
 </html>
